@@ -8,6 +8,7 @@ const Compass = () => {
     // Function to handle device orientation change
     const handleOrientation = (event) => {
       const { alpha } = event; // Get the z-axis rotation in degrees
+      console.log("Device orientation event:", event);
       setAngle(alpha); // Set the angle for rotating the compass
     };
 
@@ -26,10 +27,10 @@ const Compass = () => {
 
   return (
     <div className="compass-container">
-      <div className="compass" style={{ transform: `rotate(${angle}deg)` }}>
+      <div className="compass" style={{ transform: `rotate(${-angle}deg)` }}>
         {/* Compass circle */}
         <div className="compass-circle">
-          <div className="north-marker">↑ North</div>
+          <div className="north-marker">↑</div>
         </div>
       </div>
     </div>
@@ -37,3 +38,4 @@ const Compass = () => {
 };
 
 export default Compass;
+
