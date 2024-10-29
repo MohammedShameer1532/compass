@@ -1,41 +1,46 @@
-import React, { useState, useEffect } from "react";
-import "./App.css"; // CSS for compass styling
+import React, { useEffect, useState } from "react";
+import './App.css';
 
 const Compass = () => {
-  const [angle, setAngle] = useState(0);
+	const [heading, setHeading] = useState(0);
 
-  useEffect(() => {
-    // Function to handle device orientation change
-    const handleOrientation = (event) => {
-      const { alpha } = event; // Get the z-axis rotation in degrees
-      console.log("Device orientation event:", event);
-      setAngle(alpha); // Set the angle for rotating the compass
-    };
+	useEffect(() => {
+		const handleOrientation = (event) => {
+			const newHeading = event.alpha; // "alpha" represents the compass direction in degrees
+			if (newHeading !== null) {
+				setHeading(newHeading);
+			}
+		};
 
-    // Add event listener for device orientation
-    if (window.DeviceOrientationEvent) {
-      window.addEventListener("deviceorientation", handleOrientation);
-    } else {
-      alert("Device orientation not supported on this device.");
-    }
+		// Listen for device orientation events
+		window.addEventListener("deviceorientation", handleOrientation);
 
-    // Cleanup the event listener on component unmount
-    return () => {
-      window.removeEventListener("deviceorientation", handleOrientation);
-    };
-  }, []);
+		return () => {
+			window.removeEventListener("deviceorientation", handleOrientation);
+		};
+	}, []);
 
-  return (
-    <div className="compass-container">
-      <div className="compass" style={{ transform: `rotate(${-angle}deg)` }}>
-        {/* Compass circle */}
-        <div className="compass-circle">
-          <div className="north-marker">↑</div>
-        </div>
-      </div>
-    </div>
-  );
+	const getCardinalDirection = () => {
+		const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+		const index = Math.round(heading / 45) % 8;
+		return directions[index];
+	};
+
+	return (
+		<div className="container">
+			<h1 className="app-name">Beautiful Compass App</h1>
+			<div className="compass-container">
+				<img
+					src="https://media.geeksforgeeks.org/wp-content/uploads/20240122153821/compass.png"
+					alt="Compass"
+					className="compass-image"
+					style={{ transform: `rotate(${-heading}deg)` }}
+				/>
+			</div>
+			<p className="heading-value">{`Heading: ${heading?.toFixed(2) || 0}°`}</p>
+			<p className="cardinal-direction">{`Direction: ${getCardinalDirection()}`}</p>
+		</div>
+	);
 };
 
 export default Compass;
-
