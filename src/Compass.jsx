@@ -26,7 +26,7 @@ const Compass = () => {
 
   return (
     <div className="compass-container">
-      <div className="compass" style={{ transform: `rotate(${-angle}deg)` }}>
+      <div className="compass" style={{ transform: `rotate(${angle}deg)` }}>
         {/* Compass circle */}
         <div className="compass-circle">
           <div className="north-marker">↑ North</div>
