@@ -1,0 +1,31 @@
+.compass-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+}
+
+.compass {
+  width: 200px;
+  height: 200px;
+  transition: transform 0.1s ease;
+}
+
+.compass-circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 4px solid #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.north-marker {
+  position: absolute;
+  top: 5%;
+  font-size: 1.2rem;
+  color: red;
+}
