@@ -9,9 +9,8 @@ const Compass = () => {
       let newHeading = event.alpha;
       
       if (newHeading !== null) {
-        // Apply calibration offset (104° - 19° = 85° difference)
-        // Subtract 85° to align with true north
-        newHeading = (newHeading - 85 + 360) % 360;
+        // Apply calibration offset and invert for correct direction
+        newHeading = (-1 * (newHeading - 85) + 360) % 360;
         setHeading(newHeading);
       }
     };
