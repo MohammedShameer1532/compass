@@ -6,13 +6,15 @@ const Compass = () => {
 
 	useEffect(() => {
 		const handleOrientation = (event) => {
-			const newHeading = event.alpha; // "alpha" represents the compass direction in degrees
+			let newHeading = event.alpha;
+			
 			if (newHeading !== null) {
+				// Adjust initial offset here if necessary
+				newHeading = (newHeading + 360) % 360; // Normalize between 0-360
 				setHeading(newHeading);
 			}
 		};
 
-		// Listen for device orientation events
 		window.addEventListener("deviceorientation", handleOrientation);
 
 		return () => {
@@ -37,7 +39,7 @@ const Compass = () => {
 					style={{ transform: `rotate(${-heading}deg)` }}
 				/>
 			</div>
-			<p className="heading-value">{`Heading: ${heading?.toFixed(2) || 0}°`}</p>
+			<p className="heading-value">{`Heading: ${heading.toFixed(2)}°`}</p>
 			<p className="cardinal-direction">{`Direction: ${getCardinalDirection()}`}</p>
 		</div>
 	);
