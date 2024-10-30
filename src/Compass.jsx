@@ -9,12 +9,14 @@ const Compass = () => {
       let newHeading = event.alpha;
       
       if (newHeading !== null) {
-        // Invert the rotation direction and apply calibration
-        newHeading = (360 - newHeading - 85 + 360) % 360;
+        // Apply calibration offset (104° - 19° = 85° difference)
+        // Subtract 85° to align with true north
+        newHeading = (newHeading - 85 + 360) % 360;
         setHeading(newHeading);
       }
     };
 
+    // Request device orientation permissions on iOS
     if (typeof DeviceOrientationEvent !== 'undefined' && 
         typeof DeviceOrientationEvent.requestPermission === 'function') {
       DeviceOrientationEvent.requestPermission()
